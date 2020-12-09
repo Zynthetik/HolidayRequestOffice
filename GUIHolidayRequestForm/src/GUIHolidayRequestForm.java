@@ -28,6 +28,7 @@ public class GUIHolidayRequestForm {
 	private JTextField textFieldJob;
 	private JTextField textFieldHolidaysRequested;
 	private JTable table;
+	private int incrementID = 1;
 	/**
 	 * Launch the application.
 	 */
@@ -80,7 +81,7 @@ public class GUIHolidayRequestForm {
 		textFieldSurname = new JTextField();
 		textFieldSurname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String Surname = textFieldName.getText();
+				String surname = textFieldName.getText();
 			}
 		});
 		textFieldSurname.setBounds(141, 34, 96, 19);
@@ -97,12 +98,13 @@ public class GUIHolidayRequestForm {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				DefaultTableModel model = (DefaultTableModel)table.getModel();
-				model.addRow(new Object[] {textFieldName.getText(),
+				model.addRow(new Object[] {incrementID, textFieldName.getText(),
 						textFieldSurname.getText(),
 						Integer.parseInt(textFieldAge.getText()),
 						textFieldJob.getText(),
 						textFieldHolidaysRequested.getText()
 						});
+				incrementID += 1;
 			}
 		});
 		btnNewButton.setBounds(340, 98, 125, 21);
@@ -151,25 +153,15 @@ public class GUIHolidayRequestForm {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(32, 265, 749, 178);
 		frame.getContentPane().add(scrollPane);
-		
+
 		table = new JTable();
+		table.getTableHeader().setReorderingAllowed(false);
+		table.setDragEnabled(true);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
+			new Object[][] {},
 			// Needs to be an employee Object that consists of Name, surname, age, job, requested holidays, holidays remaining
 			// Later implement Unique ID for each employee that automatically increments when new employee is added using the jbutton
-			new String[] {"Name", "Surname", "Age", "Job", "Requested Holidays", "Holidays Remaining"}
+			new String[] {"Employee ID", "Name", "Surname", "Age", "Job", "Requested Holidays", "Holidays Remaining"}
 		));
 		scrollPane.setViewportView(table);
 		
