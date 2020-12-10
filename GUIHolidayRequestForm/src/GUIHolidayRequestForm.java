@@ -12,12 +12,22 @@ import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class GUIHolidayRequestForm {
 
@@ -31,8 +41,42 @@ public class GUIHolidayRequestForm {
 	private int incrementID = 1;
 	/**
 	 * Launch the application.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+
+		
+		String readLine = null;
+		File file = new File("Employee.txt");
+		
+		try 
+		{
+			FileReader reader = new FileReader(file);
+			BufferedReader bufReader = new BufferedReader(reader);
+			
+			List<Employee> employeeList = new ArrayList<Employee>();
+			
+			while((readLine = bufReader.readLine()) !=null)
+			{
+				String[] splitData = readLine.split(",");
+				
+				Employee employee = new Employee();
+				employee.setName(splitData[0]);
+				employee.setSurname(splitData[1]);
+				employee.setAge(splitData[2]);
+				employee.setJob(splitData[3]);
+				employee.setHolidaysRequested(splitData[4]);
+				employee.setHolidaysRemaining(splitData[5]); // needs to be an int/s
+				
+				employeeList.add(employee);
+				
+			}
+			
+		} catch (FileNotFoundException e1) 
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -70,7 +114,7 @@ public class GUIHolidayRequestForm {
 		textFieldName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				String name = textFieldName.getText();
+				String name = textFieldName.getText(); //this doesnt do anything
 				
 			}
 		});
@@ -81,7 +125,7 @@ public class GUIHolidayRequestForm {
 		textFieldSurname = new JTextField();
 		textFieldSurname.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String surname = textFieldName.getText();
+				String surname = textFieldName.getText(); // this too.
 			}
 		});
 		textFieldSurname.setBounds(141, 34, 96, 19);

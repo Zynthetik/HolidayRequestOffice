@@ -3,7 +3,7 @@ public class Employee {
 	
 	// essentially the details of employee need to be stored in a file which gets loaded into JTable
 	
-	int EmployeeId = 0; //needs to increment by one. not implemented
+	int EmployeeId = 0;
 	String name;
 	String surname;
 	String job;
